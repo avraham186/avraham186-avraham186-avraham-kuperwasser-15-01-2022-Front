@@ -1,0 +1,18 @@
+ .main-screen {
+     position: relative;
+
+     .btn-add-to-favorit,
+     .btn-remove-from-favorit {
+         width: 5rem;
+         // height: 50px;
+         padding: 5px;
+         border-radius: 50%;
+
+     }
+
+     .cities {
+         position: relative;
+         left: 40%;
+         font-size: 30px;
+     }
+ }

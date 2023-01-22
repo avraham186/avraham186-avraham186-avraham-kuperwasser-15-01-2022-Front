@@ -1,0 +1,10 @@
+// base
+@import './base/helpers';
+
+//pages
+@import './views/main-screen.scss';
+@import './views/favorit-page';
+//cmps
+@import './cmps/header';
+@import './cmps/footer';
+@import './cmps/search';
