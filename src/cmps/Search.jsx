@@ -11,7 +11,7 @@ export const Search = ({ onSearch }) => {
             }
         }
         cities()
-    })
+    },[cityInput])
 
     const onSetCity = async (ev) => {
         setCity(ev.target.value)

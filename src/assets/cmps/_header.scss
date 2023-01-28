@@ -2,21 +2,27 @@
     padding: 5px 0px 5px 0px;
     background-color: whitesmoke;
     margin-bottom: 15px;
+
     .main-nav {
         gap: 10px;
         border-radius: 50%;
         justify-content: flex-end;
+
         .links {
-            &:hover {
-                transform: scale(1.08);
-            }
             :not(:first-child) {
                 margin-left: 10px;
             }
         }
+
         a {
             text-decoration: none;
             color: black;
+            transition: .3s;
+
+            &:hover {
+                transform: scale(1.08);
+                transition: .3s;
+            }
         }
     }
 }

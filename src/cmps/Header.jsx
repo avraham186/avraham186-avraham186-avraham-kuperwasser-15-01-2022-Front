@@ -8,7 +8,7 @@ export function Header() {
             <nav className="main-nav flex space-between">
                 <div className="links flex space-between">
                     <Link to='/'>main screen</Link>
-                    <Link to='/favorit-cities'>favorit cities</Link>
+                    <Link to='/favorite-cities'>favorit cities</Link>
                 </div>
             </nav>
         </header>

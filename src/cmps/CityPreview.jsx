@@ -1,6 +1,7 @@
 import React from 'react'
 
 export const CityPreview = ({ city }) => {
+    console.log('city in preview', city)
     return (
         <div>
             <div className='localize-name'>{city.LocalizedName}</div>

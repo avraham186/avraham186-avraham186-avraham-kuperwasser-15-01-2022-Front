@@ -5,7 +5,8 @@ export const weatherService = {
     remove,
     searchCityByCityKey,
     searchCityAutoComplete,
-    isFavorite
+    isFavorite,
+    getFavorites
 }
 
 async function save(cityKey, cityName, temp) {
@@ -14,7 +15,7 @@ async function save(cityKey, cityName, temp) {
             name: cityName,
             cityKey,
         }
-        await httpService.post(`/api/favorit/${cityToSave}`)
+        await httpService.post(`/api/favorite/${cityToSave}`)
         return cityToSave;
     } catch (err) {
         const msg = err
@@ -43,6 +44,17 @@ async function searchCityByCityKey(cityKey) {
     try {
         const response = await httpService.get(`GetCurrentWeather/${cityKey}`)
         // const city = await response.json()
+        console.log('favorite cities', response);
+        return response
+    } catch (err) {
+        const msg = (err.message)
+        Promise.reject(msg)
+    }
+}
+async function getFavorites() {
+    try {
+        const response = await httpService.get('favorite/')
+        console.log('favorite cities', response);
         return response
     } catch (err) {
         const msg = (err.message)
@@ -51,7 +63,7 @@ async function searchCityByCityKey(cityKey) {
 }
 async function isFavorite(cityKey) {
     try {
-        const response = await httpService.get(`/api/favorit/is-favorite/${cityKey}`)
+        const response = await httpService.get(`favorite/is-favorite/${cityKey}`)
         return response
     } catch (err) {
         const msg = (err.message)

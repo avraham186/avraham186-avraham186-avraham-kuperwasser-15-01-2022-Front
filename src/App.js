@@ -11,8 +11,8 @@ export const App = () => {
     <div className="App">
       <Header />
       <Routes>
+        <Route path="/favorite-cities" element={<FavoritsPage />} />
         <Route path="/" element={<MainScreen />}>
-          <Route path="/favorite-cities" element={<FavoritsPage />} />
         </Route>
       </Routes>
       <Footer />

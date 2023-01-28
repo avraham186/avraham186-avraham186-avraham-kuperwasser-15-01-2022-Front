@@ -19,7 +19,6 @@ export const MainScreen = () => {
     }
     const onAddToFavorits = async () => {
         console.log('city on onAddToFavorits', city);
-        console.log('cityToSave', cityToSave);
         try {
             await weatherService.save(city.Key, city.LocalizedName)
             console.log('city added to favorits')
@@ -36,27 +35,28 @@ export const MainScreen = () => {
         }
     }
     const isFavorit = async () => {
-        const isFav = await weatherService.searchCityByCityKey(city.Key)
-        isFav ? true : false
+        if (city === '') return
+        const isFav = await weatherService.isFavorite(city.Key)
+        return isFav ? true : false
     }
 
-    const onGetCity = async (cityKey, LocalizedName) => {
+    const onGetCity = async (cityKey) => {
         const city = await weatherService.searchCityByCityKey(cityKey)
         setCity(city)
     }
 
     return (
-        <section className="main-layout">
-            <div className={'main-screen flex column justify-center align-center'}>
-                <Search onSearch={onSearch} />
-                <CitiesList cities={cities} getCity={onGetCity} />
-                <CityPreview city={city} />
+        <section className={'main-screen flex column justify-center align-center'}>
+            <Search onSearch={onSearch} />
+            <CitiesList cities={cities} onGetCity={onGetCity} />
+            <CityPreview city={city} />
+            {city && <div className="btn-toggle">
                 {isFavorit() ? <button className="btn-remove-from-favorit"
                     onClick={onDeleteCity}>delete city from favorits</button>
                     : <button className="btn-add-to-favorit"
                         onClick={() => onAddToFavorits()}>add to favorit cities</button>}
+            </div>}
 
-            </div>
         </section>
     )
 }
