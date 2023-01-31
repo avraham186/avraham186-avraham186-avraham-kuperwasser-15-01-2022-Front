@@ -7,7 +7,6 @@ export const FavoritsPage = () => {
     const [cities, setCities] = useState('')
     const [city, setCity] = useState({ key: '', LocalizedName: '', temp: '', weatherTxt: '' })
 
-    console.log('cities in favorites page');
     useEffect(() => {
         const getCities = async () => {
             const favriteCities = await weatherService.getFavorites()

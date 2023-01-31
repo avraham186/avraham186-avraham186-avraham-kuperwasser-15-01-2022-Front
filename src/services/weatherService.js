@@ -44,7 +44,6 @@ async function searchCityAutoComplete(searchTerm) {
 async function searchCityByCityKey(cityKey) {
     try {
         const response = await httpService.get(`GetCurrentWeather/${cityKey}`)
-        console.log('city in searchCityByCityKey', response);
         return response
     } catch (err) {
         const msg = (err.message)
@@ -54,7 +53,6 @@ async function searchCityByCityKey(cityKey) {
 async function getFavorites() {
     try {
         const response = await httpService.get('favorite/')
-        console.log('favorite cities in getFavorites', response);
         return response
     } catch (err) {
         const msg = (err.message)
