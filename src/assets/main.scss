@@ -3,8 +3,10 @@
 
 //pages
 @import './views/main-screen.scss';
-@import './views/favorit-page';
+@import './views/favorite-page';
 //cmps
 @import './cmps/header';
 @import './cmps/footer';
 @import './cmps/search';
+@import './cmps/cities-list';
+@import './cmps/city-preview';

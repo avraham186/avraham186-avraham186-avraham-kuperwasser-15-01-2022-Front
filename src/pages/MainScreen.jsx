@@ -6,7 +6,7 @@ import { CityPreview } from '../cmps/CityPreview';
 
 export const MainScreen = () => {
     const [cities, setCities] = useState('')
-    const [city, setCity] = useState('')
+    const [city, setCity] = useState({ key: '', LocalizedName: '', temp: '', weatherTxt: '' })
 
     const onSearch = async (searchTerm) => {
         try {
@@ -20,7 +20,7 @@ export const MainScreen = () => {
     const onAddToFavorits = async () => {
         console.log('city on onAddToFavorits', city);
         try {
-            await weatherService.save(city.Key, city.LocalizedName)
+            await weatherService.save(city.key, city.LocalizedName)
             console.log('city added to favorits')
         } catch (err) {
             console.log('the city not added to favorites', err)
@@ -28,35 +28,45 @@ export const MainScreen = () => {
     }
     const onDeleteCity = async () => {
         try {
-            await weatherService.remove(city.Key)
+            await weatherService.remove(city.key)
             console.log('city removed')
         } catch (err) {
             console.log('on deleteeCity', err)
         }
     }
-    const isFavorit = async () => {
-        if (city === '') return
-        const isFav = await weatherService.isFavorite(city.Key)
-        return isFav ? true : false
+    const isFavorite = async () => {
+        try {
+            if (city.key === '') return
+            const isFav = await weatherService.isFavorite(city.key)
+            return isFav
+        } catch (err) {
+            console.log('there was an error on check if favorite', err);
+        }
     }
 
-    const onGetCity = async (cityKey) => {
-        const city = await weatherService.searchCityByCityKey(cityKey)
-        setCity(city)
+    const onGetCity = async (cityKey, LocalizedName) => {
+        try {
+            const cityFromBack = await weatherService.searchCityByCityKey(cityKey)
+            setCity(() => {
+                return {
+                    key: cityKey,
+                    LocalizedName,
+                    temp: cityFromBack.temp,
+                    weatherTxt: cityFromBack.weatherTxt
+                }
+            })
+        } catch (err) {
+            console.log('there was an error on get city', err);
+        }
     }
 
     return (
         <section className={'main-screen flex column justify-center align-center'}>
             <Search onSearch={onSearch} />
-            <CitiesList cities={cities} onGetCity={onGetCity} />
-            <CityPreview city={city} />
-            {city && <div className="btn-toggle">
-                {isFavorit() ? <button className="btn-remove-from-favorit"
-                    onClick={onDeleteCity}>delete city from favorits</button>
-                    : <button className="btn-add-to-favorit"
-                        onClick={() => onAddToFavorits()}>add to favorit cities</button>}
-            </div>}
-
+            <div className="list-and-preview flex">
+                <CityPreview city={city} isFavorite={isFavorite} onDeleteCity={onDeleteCity} onAddToFavorits={onAddToFavorits} />
+                <CitiesList cities={cities} onGetCity={onGetCity} />
+            </div>
         </section>
     )
 }

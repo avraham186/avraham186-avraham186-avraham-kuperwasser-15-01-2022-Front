@@ -1,0 +1,13 @@
+.cities {
+    font-size: 30px;
+
+    .city {
+        cursor: pointer;
+        transition: .2s;
+
+        &:hover {
+            transition: .2s;
+            background-color: whitesmoke;
+        }
+    }
+}
